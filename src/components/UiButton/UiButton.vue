@@ -24,18 +24,45 @@ const props = withDefaults(defineProps<IProps>(), {
   gap: 8px;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 16px 32px;
+  height: 48px; 
+  padding: 36px 36px; 
   font-size: 1rem;
+  font-weight: 700;
   line-height: 1.5;
-  color: var(--color-white);
-  background: var(--color-primary);
-  border-radius: 16px;
+  color: #c90842;
+  background-color: #e7a4e7; 
+  border: 3px solid #c90842; 
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #de8bef;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #d7f5ff; 
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
   &[data-layout='secondary'] {
-    color: var(--color-primary);
-    background-color: var(--color-transparent);
-    border-color: var(--color-primary);
+    color: #e7a4e7;
+    background-color: transparent;
+    border-color: #e7a4e7;
+
+    &:hover:not(:disabled) {
+      background-color: rgba(231, 164, 231, 0.15);
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgba(215, 245, 255, 0.3);
+      color: #d7f5ff;
+    }
   }
 }
 </style>
