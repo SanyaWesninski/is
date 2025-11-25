@@ -28,8 +28,4 @@ const props = defineProps<IProps>();
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
-.control {
-  /* wrapper only */
-}
 </style>

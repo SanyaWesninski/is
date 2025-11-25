@@ -1,27 +1,28 @@
-// vite.lib.config.ts
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
+  plugins: [
+    vue(),
+    dts({ entryRoot: 'src/components' })
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/components/index.ts'),
       name: 'MyBluesideUi',
-      fileName: 'index',
-      formats: ['es', 'umd'],
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],
       output: {
-        globals: { vue: 'Vue' },
+        globals: {
+          vue: 'Vue',
+        },
       },
     },
-    sourcemap: true,
+    cssCodeSplit: false,
+    outDir: 'dist',
   },
-  plugins: [
-    vue(),
-    dts({ entryRoot: 'src/components' }),
-  ],
 });

@@ -85,7 +85,7 @@ const props = withDefaults(defineProps<IProps>(), {
 
   /* Специально для secondary: убираем прозрачность */
   &[data-layout='secondary'] {
-    color: var(--color-disabled-text);
+    color: var(--color-disabled-text); 
     background: var(--color-disabled-bg);
     border-color: var(--color-border);
   }
