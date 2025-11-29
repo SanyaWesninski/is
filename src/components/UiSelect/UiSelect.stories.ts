@@ -1,54 +1,74 @@
-import { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3';
 import UiSelect from './UiSelect.vue';
-import { html } from '../../helpers';
-
-// Импортируем тип IProps
-import type { IProps } from './types.ts';
-
-const options = ['Пункт 1', 'Пункт 2', 'Пункт 3'];
 
 const meta: Meta<typeof UiSelect> = {
+  title: 'Components/UiSelect',
   component: UiSelect,
-  args: {
-    modelValue: options[0],
-    options,
-    isDisabled: false,
-  },
   argTypes: {
     modelValue: {
-      control: 'text',
+      control: { type: 'select' },
+      options: ['Опция 1', 'Опция 2', 'Опция 3'],
+      description: 'Выбранное значение',
     },
     isDisabled: {
-      control: 'boolean',
+      control: { type: 'boolean' },
+      description: 'Отключить селект',
     },
+    options: {
+      control: { type: 'object' },
+      description: 'Массив опций',
+    },
+  },
+  args: {
+    modelValue: 'Опция 1',
+    isDisabled: false,
+    options: ['Опция 1', 'Опция 2', 'Опция 3'],
   },
 };
 
-export default meta; // ✅ Обязательная строка!
+export default meta;
 
-export const Default: StoryObj<typeof UiSelect> = {
-  render: (args: IProps) => ({
+type Story = StoryObj<typeof UiSelect>;
+
+export const Default: Story = {
+  args: {
+    modelValue: 'Опция 1',
+    options: ['Опция 1', 'Опция 2', 'Опция 3'],
+  },
+  render: (args) => ({
     components: { UiSelect },
     setup() {
-      return {
-        args,
-        value: args.modelValue,
-      };
+      return { args };
     },
-    template: html`
-      <UiSelect
-        v-bind="args"
-        :modelValue="value"
-        @update:modelValue="value = $event"
-      />
-    `,
+    template: '<UiSelect v-bind="args" />',
   }),
 };
 
-export const Disabled: StoryObj<typeof UiSelect> = {
-  ...Default,
+export const WithSelected: Story = {
   args: {
-    ...Default.args,
-    isDisabled: true,
+    modelValue: 'Опция 2',
+    options: ['Опция 1', 'Опция 2', 'Опция 3'],
   },
+  render: (args) => ({
+    components: { UiSelect },
+    setup() {
+      return { args };
+    },
+    template: '<UiSelect v-bind="args" />',
+  }),
+};
+
+export const Disabled: Story = {
+  args: {
+    modelValue: 'Опция 1',
+    isDisabled: true,
+    options: ['Опция 1', 'Опция 2', 'Опция 3'],
+  },
+  render: (args) => ({
+    components: { UiSelect },
+    setup() {
+      return { args };
+    },
+    template: '<UiSelect v-bind="args" />',
+  }),
 };

@@ -1,29 +1,11 @@
 :root {
-  /* === Основные цвета === */
-  --color-primary: #4f46e5;
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4338ca;
-
-  --color-surface: #ffffff;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-border: #d1d5db;
-
-  //*Чётко серые значения для disabled-состояния */
-  --color-disabled-bg: #f9fafb;        /* Очень светло-серый фон */
-  --color-disabled-text: #9ca3af;      /* Серый текст */
-  --color-border: #d1d5db;             /* Серая рамка */
-
-  /* === Кнопки — Primary === */
-  --color-button-text-primary: #ffffff;
-  --color-button-bg-primary: var(--color-primary);
-  --color-button-bg-primary-hover: var(--color-primary-light);
-  --color-button-border-primary: var(--color-primary);
-
-  /* === Кнопки — Secondary === */
-  --color-button-text-secondary: var(--color-primary);
-  --color-button-text-secondary-hover: #ffffff;
-  --color-button-bg-secondary: transparent;
-  --color-button-bg-secondary-hover: var(--color-primary);
-  --color-button-border-secondary: var(--color-primary);
+  --color-bg: #0f0f1b;               
+  --color-surface: #1a1a2e;         
+  --color-border: #393953;        
+  --color-text: #f0f0ff;            
+  --color-placeholder: #8a8ab3;     
+  --color-primary: #ff00ff;        
+  --color-primary-light: #ff2a6d;    
+  --color-primary-glow: rgba(255, 0, 255, 0.6);
+  --color-disabled: #2a2a3d;
 }

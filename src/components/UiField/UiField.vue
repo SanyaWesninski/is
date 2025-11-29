@@ -1,17 +1,14 @@
 <template>
   <div :class="$style.field">
-    <label v-if="props.label" :class="$style.label">{{ props.label }}</label>
-    <div :class="$style.control">
-      <slot></slot>
-    </div>
+    <label v-if="label" :class="$style.label">{{ label }}</label>
+    <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { IProps } from './types';
-
-// ✅ Явное присваивание — Volar поймёт тип
-const props = defineProps<IProps>();
+defineProps<{
+  label?: string;
+}>();
 </script>
 
 <style module lang="scss">
@@ -19,13 +16,13 @@ const props = defineProps<IProps>();
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
 .label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px rgba(255, 42, 109, 0.3); 
 }
 </style>

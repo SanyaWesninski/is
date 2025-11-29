@@ -1,52 +1,56 @@
-import { Meta, StoryObj } from '@storybook/vue3';
-import { UiField, UiInput, UiSelect } from '../';
-import { html } from '../../helpers';
-import type { IProps } from './types.ts'; // ✅ Импорт типа
+/* eslint-disable prettier/prettier */
+import type { Meta, StoryObj } from '@storybook/vue3';
+import UiInput from '../UiInput/UiInput.vue';
+import UiField from './UiField.vue';
 
 const meta: Meta<typeof UiField> = {
+  title: 'Components/UiField',
   component: UiField,
-  args: {
-    label: 'Email адрес',
-  },
   argTypes: {
-    label: { control: 'text' },
+    label: {
+      control: { type: 'text' },
+      description: 'Текст метки',
+    },
   },
+  args: {
+    label: 'E-mail',
+  },
+};
+
+type Story = StoryObj<typeof UiField>;
+
+export const WithLabel: Story = {
+  args: {
+    label: 'E-mail',
+  },
+  render: (args) => ({
+    components: { UiField, UiInput },
+    setup() {
+      return { args };
+    },
+    template: `
+      <UiField v-bind="args">
+        <UiInput placeholder="user@example.com" />
+      </UiField>
+    `,
+  }),
+};
+
+export const WithoutLabel: Story = {
+  args: {
+    label: '',
+  },
+  render: (args) => ({
+    components: { UiField, UiInput },
+    setup() {
+      return { args };
+    },
+    template: `
+      <UiField v-bind="args">
+        <UiInput placeholder="Без метки" />
+      </UiField>
+    `,
+  }),
 };
 
 export default meta;
-
-export const WithInput: StoryObj<typeof UiField> = {
-  render: (args: IProps) => ({ // ✅ Явный тип args
-    components: { UiField, UiInput },
-    setup() {
-      return {
-        args,
-        value: '',
-      };
-    },
-    template: html`
-      <UiField v-bind="args">
-        <UiInput v-model="value" placeholder="user@example.com" />
-      </UiField>
-    `,
-  }),
-};
-
-export const WithSelect: StoryObj<typeof UiField> = {
-  render: (args: IProps) => ({ // ✅ Явный тип args
-    components: { UiField, UiSelect },
-    setup() {
-      const options = ['Админ', 'Редактор', 'Гость'];
-      return {
-        args: { ...args, label: 'Роль' },
-        value: options[0],
-        options,
-      };
-    },
-    template: html`
-      <UiField v-bind="args">
-        <UiSelect v-model="value" :options="options" />
-      </UiField>
-    `,
-  }),
-};

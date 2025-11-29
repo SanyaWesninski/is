@@ -1,55 +1,73 @@
-import { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3';
 import UiInput from './UiInput.vue';
-import { html } from '../../helpers';
-import type { IProps } from './types.ts';
-import { ref, watch } from 'vue';
 
 const meta: Meta<typeof UiInput> = {
+  title: 'Components/UiInput',
   component: UiInput,
+  argTypes: {
+    modelValue: {
+      control: { type: 'text' },
+      description: 'Текущее значение инпута',
+    },
+    isDisabled: {
+      control: { type: 'boolean' },
+      description: 'Отключить инпут',
+    },
+    placeholder: {
+      control: { type: 'text' },
+      description: 'Плейсхолдер',
+    },
+  },
   args: {
     modelValue: '',
-    placeholder: 'Введите текст...',
     isDisabled: false,
-  },
-  argTypes: {
-    modelValue: { control: 'text' },
-    placeholder: { control: 'text' },
-    isDisabled: { control: 'boolean' },
+    placeholder: 'Введите текст',
   },
 };
 
 export default meta;
 
-export const Default: StoryObj<typeof UiInput> = {
-  render: (args: IProps) => ({
+type Story = StoryObj<typeof UiInput>;
+
+export const Default: Story = {
+  args: {
+    modelValue: '',
+    placeholder: 'Введите текст',
+  },
+  render: (args) => ({
     components: { UiInput },
     setup() {
-      const value = ref(args.modelValue);
-
-      watch(() => args.modelValue, (newVal) => {
-        value.value = newVal;
-      });
-
-      return {
-        args,
-        value,
-      };
+      return { args };
     },
-    template: html`
-      <UiInput
-        v-bind="args"
-        :modelValue="value"
-        @update:modelValue="value = $event"
-      />
-    `,
+    template: '<UiInput v-bind="args" />',
   }),
 };
 
-export const Disabled: StoryObj<typeof UiInput> = {
-  ...Default,
+export const WithValue: Story = {
   args: {
-    ...Default.args,
-    isDisabled: true,
-    modelValue: 'Недоступно',
+    modelValue: 'Привет, мир!',
+    placeholder: 'Введите текст',
   },
+  render: (args) => ({
+    components: { UiInput },
+    setup() {
+      return { args };
+    },
+    template: '<UiInput v-bind="args" />',
+  }),
+};
+
+export const Disabled: Story = {
+  args: {
+    modelValue: 'Заблокировано',
+    isDisabled: true,
+    placeholder: 'Введите текст',
+  },
+  render: (args) => ({
+    components: { UiInput },
+    setup() {
+      return { args };
+    },
+    template: '<UiInput v-bind="args" />',
+  }),
 };

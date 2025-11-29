@@ -1,60 +1,57 @@
 <template>
-  <input
-    :class="$style.input"
-    :data-disabled="props.isDisabled"
-    :placeholder="props.placeholder"
-    :value="props.modelValue"
-    :disabled="props.isDisabled"
-    @input="onInput"
-  />
+  <div :class="$style.wrapper">
+    <input
+      :class="$style.input"
+      :value="modelValue"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+      "
+      :disabled="isDisabled"
+      :placeholder="placeholder"
+      :data-disabled="isDisabled"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-interface IProps {
+defineProps<{
   modelValue: string;
   isDisabled?: boolean;
   placeholder?: string;
-}
+}>();
 
-interface IEmit {
+defineEmits<{
   (e: 'update:modelValue', value: string): void;
-}
-
-const props = withDefaults(defineProps<IProps>(), {
-  isDisabled: false,
-  placeholder: '',
-});
-
-const emit = defineEmits<IEmit>();
-
-const onInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emit('update:modelValue', target.value);
-};
+}>();
 </script>
 
 <style module lang="scss">
 .input {
   width: 100%;
-  height: 44px;
-  padding: 0 16px;
-  font-size: 1rem;
-  color: var(--color-text);
-  background: var(--color-surface);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  line-height: 1.4;
   border: 2px solid var(--color-border);
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border-radius: 12px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all 0.25s ease;
+  box-sizing: border-box;
 
   &:focus {
+    outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px var(--color-focus);
+    box-shadow: 0 0 0 3px rgba(255, 0, 255, 0.2);
   }
 
-  &[data-disabled='true'] {
-    background: var(--color-disabled-bg);
-    color: var(--color-disabled-text);
+  &:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
+    background-color: var(--color-disabled);
+  }
+
+  &::placeholder {
+    color: var(--color-placeholder);
   }
 }
 </style>
